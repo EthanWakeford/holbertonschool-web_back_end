@@ -5,11 +5,11 @@ export default class HolbertonCourse {
     this.students = students;
   }
 
-  getName() {
+  get Name() {
     return this._name;
   }
 
-  setName(name) {
+  set Name(name) {
     if (typeof name === 'string') {
       this._name = name;
     } else {
@@ -17,11 +17,11 @@ export default class HolbertonCourse {
     }
   }
 
-  getlength() {
+  get length() {
     return this._length;
   }
 
-  setLength(length) {
+  set Length(length) {
     if (typeof length === 'number') {
       this._length = length;
     } else {
@@ -29,11 +29,11 @@ export default class HolbertonCourse {
     }
   }
 
-  getStudents() {
+  get Students() {
     return this._students;
   }
 
-  setStudents(students) {
+  set Students(students) {
     if (Array.isArray(students)) {
       this._students = students;
     } else {
