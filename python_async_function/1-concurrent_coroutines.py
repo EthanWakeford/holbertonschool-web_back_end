@@ -10,9 +10,7 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     """runs wait_random n number of times and return list of delays"""
     delays: List[float] = []
 
-    for future in asyncio.as_completed(
-            [wait_random(max_delay) for i in range(n)]):
-
+    for future in asyncio.as_completed([wait_random(max_delay) for i in range(n)]):  # noqa
         delays.append(await future)
 
     return delays
