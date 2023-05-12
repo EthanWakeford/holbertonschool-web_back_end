@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """collects and returns 10 random numbers using async generator"""
 import asyncio
 from typing import List
