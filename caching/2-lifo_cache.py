@@ -10,11 +10,11 @@ class LIFOCache(BaseCaching):
         """puts into cache, removes first key if cache is full"""
         if not key or not item:
             return
-        self.cache_data[key] = item
 
         if len(self.cache_data) > self.MAX_ITEMS:
             last_key = self.cache_data.popitem()[0]
             print('DISCARD: ' + last_key)
+        self.cache_data[key] = item
 
     def get(self, key):
         """gets value from cache"""
