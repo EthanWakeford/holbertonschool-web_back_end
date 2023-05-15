@@ -11,6 +11,7 @@ class FIFOCache(BaseCaching):
         if not key or not item:
             return
         self.cache_data[key] = item
+        self.MAX_ITEMS += 1
         
         if self.MAX_ITEMS > 4:
             first_key = next(iter(self.cache_data))
