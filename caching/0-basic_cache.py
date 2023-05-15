@@ -12,7 +12,6 @@ class BasicCache(BaseCaching):
             return
         self.cache_data[key] = item
 
-
     def get(self, key):
         """gets from cache"""
         if not key or key not in self.cache_data:
