@@ -11,9 +11,8 @@ class FIFOCache(BaseCaching):
         if not key or not item:
             return
         self.cache_data[key] = item
-        self.MAX_ITEMS += 1
         
-        if self.MAX_ITEMS > 4:
+        if len(self.cache_data) > 4:
             first_key = next(iter(self.cache_data))
             self.cache_data.pop(first_key)
             print('DISCARD: ' + first_key)
