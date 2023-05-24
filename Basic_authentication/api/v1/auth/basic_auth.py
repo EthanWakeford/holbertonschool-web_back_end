@@ -8,6 +8,7 @@ class BasicAuth(Auth):
     """basic auth class inherits from auth"""
 
     def extract_base64_authorization_header(self, authorization_header: str) -> str:  # noqa
+        """extracts the auth header"""
         if authorization_header is None or type(authorization_header) != str:
             return None
         if not re.search('^Basic ', authorization_header):
