@@ -20,19 +20,17 @@ if auth_type:
     auth = Auth()
 
 
+@app.before_request
 def before_request():
     """function to run before requests"""
     if not auth:
-        break
+        return
     if not auth.require_auth(request.path, ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']):  # noqa
-        break
+        return
     if not auth.authorization_header(request):
         abort(401)
     if not auth.current_user(request):
         abort(403)
-
-
-Flask.before_request(self, before_request)
 
 
 @app.errorhandler(404)
