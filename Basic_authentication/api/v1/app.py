@@ -21,6 +21,7 @@ if auth_type:
 
 
 def before_request():
+    """function to run before requests"""
     if not auth:
         break
     if not auth.require_auth(request.path, ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']):  # noqa
