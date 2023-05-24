@@ -8,13 +8,13 @@ class Auth():
     """an authorization class"""
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """auth"""
+        """auth auth auth"""
         return False
 
     def authorization_header(self, request=None) -> str:
-        """header"""
+        """header header header"""
         return None
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """user"""
+        """user user user"""
         return None
