@@ -1,13 +1,28 @@
 #!/usr/bin/env python3
 """returns a log"""
 import re
-from typing import List
+from typing import List, Tuple
 import logging
 
 
 def filter_datum(fields: List[str], redaction: str, message: str, separator: str) -> str:  # noqa
     """filters the message and takes out info listed in the fields"""
     return re.sub(r'(' + '|'.join(fields) + r')=[^{}]+'.format(separator), r'\1={}'.format(redaction), message)  # noqa
+
+
+def get_logger() -> logging.Logger:
+    """returns a logger object"""
+    logger = logging.Logger('user_data')
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    handler = logging.StreamHandler()
+    formatter = RedactingFormatter(list(PII_FIELDS))
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    return logger
+
+
+PII_FIELDS: Tuple = ('name', 'email', 'phone', 'ssn', 'password')
 
 
 class RedactingFormatter(logging.Formatter):
