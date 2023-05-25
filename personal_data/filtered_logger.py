@@ -77,3 +77,11 @@ class RedactingFormatter(logging.Formatter):
         """formats a log message"""
         log_message: str = super().format(record)
         return filter_datum(self.fields, self.REDACTION, log_message, self.SEPARATOR)  # noqa
+
+
+def main():
+    get_db()
+
+
+if __name__ == '__main__':
+    main()
