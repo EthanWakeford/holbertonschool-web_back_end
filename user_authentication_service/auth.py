@@ -26,7 +26,7 @@ class Auth:
             # print("no results")
             hashed_password = _hash_password(password)
             db.add_user(email, hashed_password)
-            user = db.find_user_by(email=email)
+            # user = db.find_user_by(email=email)
             # print(user.id, user.email)
         
         return User
