@@ -9,4 +9,3 @@ from typing import TypeVar
 
 class SessionAuth(Auth):
     """controls session auth methods"""
-    
