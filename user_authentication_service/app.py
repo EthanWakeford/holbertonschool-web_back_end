@@ -9,6 +9,7 @@ import os
 app = Flask(__name__)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
+
 @app.route('/', methods=['GET'])
 def root():
     """root of flask app"""
