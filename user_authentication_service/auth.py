@@ -26,6 +26,15 @@ class Auth:
 
         return User
 
+    def valid_login(self, email: str, password: str) -> bool:
+        """validates a password"""
+        try:
+            user = self._db.find_user_by(email=email)
+            password = password.encode('utf-8')
+            return bcrypt.checkpw(password, user.hashed_password)
+        except Exception as e:
+            return False
+
 
 def _hash_password(password: str) -> bytes:
     """hashes a password"""
