@@ -50,7 +50,7 @@ class DB:
         except InvalidRequestError as e:
             raise InvalidRequestError("Wrong query arguments") from e
 
-    def update_user(self, user_id, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """finds and updates user info"""
         user = self.find_user_by(id=user_id)
         for attr, value in kwargs.items():
