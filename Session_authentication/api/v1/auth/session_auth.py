@@ -12,7 +12,6 @@ class SessionAuth(Auth):
     """controls session auth methods"""
     user_id_by_session_id = {}
 
-
     def create_session(self, user_id: str = None) -> str:
         """creates a session id for user"""
         if type(user_id) != str:
