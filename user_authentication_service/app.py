@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """flask app"""
 from os import getenv
-from flask import Flask, jsonify, abort, request, make_response
+from flask import Flask, jsonify, abort, request, make_response, redirect
 from flask_cors import (CORS, cross_origin)
 import os
 from auth import Auth
@@ -56,7 +56,7 @@ def logout():
         abort(403)
 
     AUTH.destroy_session(user.id)
-    root()
+    return redirect('/')
 
 
 if __name__ == "__main__":
