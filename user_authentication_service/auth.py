@@ -5,6 +5,7 @@ import base64
 from db import DB
 from user import Base, User
 from sqlalchemy.orm.exc import NoResultFound
+from uuid import uuid4
 
 
 class Auth:
@@ -41,3 +42,8 @@ def _hash_password(password: str) -> bytes:
     salt = bcrypt.gensalt()
     bytes = password.encode('utf-8')
     return bcrypt.hashpw(bytes, salt)
+
+
+def _generate_uuid() -> str:
+    """creates an id"""
+    return str(uuid4())
