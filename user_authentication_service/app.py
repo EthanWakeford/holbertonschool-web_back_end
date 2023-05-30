@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """flask app"""
 from os import getenv
-from flask import Flask, jsonify, abort, request
+from flask import Flask, jsonify, abort, request, make_response
 from flask_cors import (CORS, cross_origin)
 import os
 from auth import Auth
@@ -30,6 +30,21 @@ def users():
         return jsonify({"email": email, "message": "user created"}), 200
     except Exception:
         return jsonify({"message": "email already registered"}), 400
+
+
+@app.route('/sessions', methods=['POST'])
+def sessions():
+    """creates a new session id and stores it as a cookie"""
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+    if not AUTH.valid_login(email, password):
+        abort(401)
+
+    session_id = AUTH.create_session(email)
+    response = make_response()
+    response.set_cookie('session_id', session_id)
+    return jsonify({"email": email, "message": "logged in"})
 
 
 if __name__ == "__main__":
