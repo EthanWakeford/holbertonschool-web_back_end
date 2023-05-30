@@ -12,7 +12,7 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 @app.route('/', methods=['GET'])
 def root():
     """root of flask app"""
-    jsonify({"message": "Bienvenue"})
+    return jsonify({"message": "Bienvenue"})
 
 
 if __name__ == "__main__":
