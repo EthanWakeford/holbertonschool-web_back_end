@@ -2,7 +2,7 @@
 """testing for util.py"""
 import unittest
 from parameterized import parameterized
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 import utils
 
 
@@ -39,6 +39,6 @@ class TestGetJson(unittest.TestCase):
         mock_response = Mock()
         mock_response.json.return_value = payload
         with patch('requests.get', return_value=mock_response) as mock_get:
-            response = get_json(url)
+            response = utils.get_json(url)
             mock_get.assert_called_once_with(url)
             self.assertEqual(response, payload)
