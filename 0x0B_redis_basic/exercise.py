@@ -36,6 +36,19 @@ def call_history(method: Callable) -> Callable:
     return wrapper
 
 
+def replay(method: Callable) -> str:
+    """display the history of calls of a function"""
+    r = redis.Redis()
+    key = method.__qualname__
+    inputs = r.lrange(key + ':inputs', 0, -1)
+    outputs = r.lrange(key + ':outputs', 0, -1)
+
+    print(f'{key} was called {r.get(key).decode()} times')
+
+    for i, o in zip(inputs, outputs):
+        print(f'{key}(*{i.decode()}) -> {o.decode()}')
+
+
 class Cache():
     """defines a cache"""
 
@@ -69,3 +82,10 @@ class Cache():
     def get_int(self, key):
         """gets an int from redis"""
         return self.get(key, int)
+
+
+cache = Cache()
+cache.store("foo")
+cache.store("bar")
+cache.store(42)
+replay(cache.store)
