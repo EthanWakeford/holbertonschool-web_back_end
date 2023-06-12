@@ -19,7 +19,7 @@ class Cache():
 
         return key
 
-    def get(self, key: str, fn: Callable):
+    def get(self, key: str, fn: Callable = None):
         """gets from redis"""
         if self._redis.exists(key):
             val = self._redis.get(key)
