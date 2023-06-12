@@ -2,7 +2,7 @@
 """holds a cache class"""
 import redis
 from uuid import uuid4
-from typing import Union
+from typing import Union, Callable
 
 
 class Cache():
@@ -18,3 +18,21 @@ class Cache():
         self._redis.set(key, data)
 
         return key
+
+    def get(self, key: str, fn: Callable):
+        """gets from redis"""
+        if self._redis.exists(key):
+            val = self._redis.get(key)
+            if (fn):
+                val = fn(val)
+            return val
+        else:
+            return
+
+    def get_str(self, key):
+        """gets a str from redis"""
+        return self.get(key, str)
+
+    def get_int(self, key):
+        """gets an int from redis"""
+        return self.get(key, int)
