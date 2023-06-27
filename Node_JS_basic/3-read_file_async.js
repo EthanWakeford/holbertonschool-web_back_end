@@ -2,8 +2,10 @@ const fs = require('fs');
 
 function countStudents(path) {
   return new Promise((resolve, reject) => {
-    try {
       fs.readFile(path, 'utf8', (err, data) => {
+        if (err) {
+          throw new Error('Cannot load the database')
+        }
         let count = 0;
         const fields = {
           CS: {
@@ -28,9 +30,6 @@ function countStudents(path) {
         console.log(`Number of students in SWE: ${fields.SWE.studentCount}. List: ${fields.SWE.students.join(', ')}`);
         resolve();
       });
-    } catch (err) {
-      reject(err);
-    }
   });
 }
 
