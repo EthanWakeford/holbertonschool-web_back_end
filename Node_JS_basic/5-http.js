@@ -10,31 +10,35 @@ const app = http.createServer((req, res) => {
     res.end();
   }
   if (reqUrl === '/students') {
-    const data = fs.readFileSync(process.argv[2], 'utf8');
-    let count = 0;
-    const fields = {
-      CS: {
-        studentCount: 0,
-        students: [],
-      },
-      SWE: {
-        studentCount: 0,
-        students: [],
-      },
-    };
-
-    for (const row of data.split('\n').slice(1, -1)) {
-      const student = row.split(',');
-      fields[student[3]].studentCount += 1;
-      fields[student[3]].students.push(student[0]);
-      count += 1;
-    }
-
     res.write('This is the list of our students\n');
-    res.write(`Number of students: ${count}\n`);
-    res.write(`Number of students in CS: ${fields.CS.studentCount}. List: ${fields.CS.students.join(', ')}\n`);
-    res.write(`Number of students in SWE: ${fields.SWE.studentCount}. List: ${fields.SWE.students.join(', ')}\n`);
-    res.end();
+    try {
+      const data = fs.readFileSync(process.argv[2], 'utf8');
+      let count = 0;
+      const fields = {
+        CS: {
+          studentCount: 0,
+          students: [],
+        },
+        SWE: {
+          studentCount: 0,
+          students: [],
+        },
+      };
+
+      for (const row of data.split('\n').slice(1, -1)) {
+        const student = row.split(',');
+        fields[student[3]].studentCount += 1;
+        fields[student[3]].students.push(student[0]);
+        count += 1;
+      }
+      res.write(`Number of students: ${count}\n`);
+      res.write(`Number of students in CS: ${fields.CS.studentCount}. List: ${fields.CS.students.join(', ')}\n`);
+      res.write(`Number of students in SWE: ${fields.SWE.studentCount}. List: ${fields.SWE.students.join(', ')}\n`);
+    } catch (err) {
+      res.write('Cannot load the database');
+    } finally {
+      res.end();
+    }
   }
 }).listen(1245);
 
