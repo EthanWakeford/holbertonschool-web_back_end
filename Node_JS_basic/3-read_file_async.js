@@ -1,11 +1,9 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 
 function countStudents(path) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf8', (err, data) => {
-      if (err) {
-        reject(new Error('Cannot load the database'));
-      }
+  return fs
+    .readFile(path, 'utf8')
+    .then((data) => {
       let count = 0;
       const fields = {
         CS: {
@@ -26,11 +24,20 @@ function countStudents(path) {
       }
 
       console.log(`Number of students: ${count}`);
-      console.log(`Number of students in CS: ${fields.CS.studentCount}. List: ${fields.CS.students.join(', ')}`);
-      console.log(`Number of students in SWE: ${fields.SWE.studentCount}. List: ${fields.SWE.students.join(', ')}`);
-      resolve();
+      console.log(
+        `Number of students in CS: ${
+          fields.CS.studentCount
+        }. List: ${fields.CS.students.join(', ')}`
+      );
+      console.log(
+        `Number of students in SWE: ${
+          fields.SWE.studentCount
+        }. List: ${fields.SWE.students.join(', ')}`
+      );
+    })
+    .catch(() => {
+      throw new Error('Cannot load the database');
     });
-  });
 }
 
 module.exports = countStudents;
