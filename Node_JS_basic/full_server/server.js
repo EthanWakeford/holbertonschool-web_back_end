@@ -7,3 +7,5 @@ const PORT = 1245;
 app.listen(PORT, () => {
   console.log('express running on port', PORT);
 });
+
+module.exports = app;
