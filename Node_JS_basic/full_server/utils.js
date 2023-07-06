@@ -1,3 +1,5 @@
+const fs = require('fs').promises;
+
 function readDatabase(path) {
   return fs
     .readFile(path, 'utf8')
@@ -22,3 +24,5 @@ function readDatabase(path) {
       throw new Error('Cannot load the database');
     });
 }
+
+module.exports = readDatabase;
