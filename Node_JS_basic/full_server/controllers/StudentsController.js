@@ -2,7 +2,7 @@ const readDatabase = require('../utils');
 
 class StudentsController {
   static getAllStudents(req, res) {
-    readDatabase('../database.csv').then((students) => {
+    readDatabase(process.argv[2]).then((students) => {
       let returnString = 'This is the list of our students\n';
 
       students.CS.students.sort();
@@ -14,7 +14,7 @@ class StudentsController {
       returnString += `Number of students in SWE: ${
         students.SWE.students.length
       }. List: ${students.SWE.students.join(', ')}`;
-      console.log(returnString);
+
       res.send(returnString);
     });
   }
@@ -26,7 +26,7 @@ class StudentsController {
       res.status(500).write('Major parameter must be CS or SWE');
     }
 
-    readDatabase('../database.csv').then((students) => {
+    readDatabase(process.argv[2]).then((students) => {
       res.send(`List: ${students[major].students.join(', ')}`);
     });
   }
